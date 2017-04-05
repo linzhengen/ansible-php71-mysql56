@@ -4,7 +4,17 @@
 
 - name: Install php package
   yum: name={{ item }} state=present enablerepo=remi,remi-php71
-  with_items: php_packages
+  with_items:
+    - php-gd
+    - php-mbstring
+    - php-pdo
+    - php-snmp
+    - php-devel
+    - php-process
+    - php-fpm
+    - php-pear
+    - php-mysql
+    - php-mcrypt
 
 - name: Disable default php-fpm.d
   command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled

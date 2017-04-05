@@ -1,0 +1,13 @@
+---
+php_packages: [
+  "php-gd",
+  "php-mbstring",
+  "php-pdo",
+  "php-snmp",
+  "php-devel",
+  "php-process",
+  "php-fpm",
+  "php-pear",
+  "php-mysql",
+  "php-mcrypt"
+]

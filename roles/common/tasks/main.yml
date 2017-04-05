@@ -43,6 +43,7 @@
     - openssh-clients
     - crontabs
     - libselinux-python
+    - yum-utils
 
 - name: selinux off
   selinux: state=disabled
