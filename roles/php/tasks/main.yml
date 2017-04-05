@@ -1,8 +1,8 @@
 ---
-- name: install php
-  yum: name=php state=present enablerepo=remi-php56
+- name: Install php
+  yum: name=php state=present enablerepo=remi,remi-php71
 
-- name: install php package
+- name: Install php package
   yum: name={{ item }} state=present enablerepo=remi,remi-php71
   with_items: php_packages
 
@@ -23,5 +23,5 @@
 #- name: php-fpm conf apache to nginx replace
 #  replace: dest=/etc/php-fpm.d/www.conf regexp='apache' replace='nginx' backup=yes
 
-- name: start php-fpm
+- name: Start php-fpm
   service: name=php-fpm state=started enabled=yes
