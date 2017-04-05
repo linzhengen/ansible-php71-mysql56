@@ -1,0 +1,48 @@
+---
+- name: Set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
+
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Add epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Add repository 'remi-repo'
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    state: present
+
+#- name: add PHP Extension library
+#  yum: name={{ item }} state=installed enablerepo=epel,remi,remi-php71
+#  with_items:
+#    - libtidy
+#    - libmcrypt
+#
+- name: Install base
+  yum: name={{ item }} state=present
+  with_items:
+    - wget
+    - vim
+    - gcc
+    - libxml2
+    - libxml2-devel
+    - libtidy
+    - libmcrypt
+    - curl-devel
+    - readline-devel
+    - libxslt-devel
+    - giflib-devel
+    - openssl
+    - openssl-devel
+    - openssh-clients
+    - crontabs
+    - libselinux-python
+
+- name: selinux off
+  selinux: state=disabled
