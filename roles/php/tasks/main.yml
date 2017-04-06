@@ -1,14 +1,4 @@
 ---
-- name: php | add epel-release
-  yum:
-    name: epel-release
-    state: present
-
-- name: php | add repository 'remi-repo'
-  yum:
-    name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-    state: present
-
 - name: php | install php
   yum: name=php state=present enablerepo=remi,remi-php71
 
