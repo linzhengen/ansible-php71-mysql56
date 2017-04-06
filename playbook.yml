@@ -2,14 +2,11 @@
 - hosts: all
   become: yes
   become_method: sudo
-  vars_files:
-    - vars/package.yml
-    - vars/mysql.yml
   roles:
     - git
     - common
     - nginx
     - php
     - composer
-    - mysql57
+    - mysql56
 #    - app

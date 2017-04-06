@@ -8,16 +8,6 @@
     name: '*'
     state: latest
 
-- name: Add epel-release
-  yum:
-    name: epel-release
-    state: present
-
-- name: Add repository 'remi-repo'
-  yum:
-    name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-    state: present
-
 #- name: add PHP Extension library
 #  yum: name={{ item }} state=installed enablerepo=epel,remi,remi-php71
 #  with_items:
@@ -43,7 +33,6 @@
     - openssh-clients
     - crontabs
     - libselinux-python
-    - yum-utils
 
 - name: selinux off
   selinux: state=disabled

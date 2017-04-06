@@ -1,0 +1,58 @@
+---
+- name: mysql | install mysql rpm
+  yum: name=https://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+
+- name: mysql | install mysql
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-community-libs-compat
+    - mysql-community-client
+    - mysql-community-server
+    - MySQL-python
+
+- name: mysql | copy my.cnf
+  template: src=my.cnf.j2 dest=/etc/my.cnf backup=yes
+  notify: mysqld restart
+
+- name: mysql | running and enabled
+  service:
+    name=mysqld
+    state=started
+    enabled=yes
+  tags: mysqld
+
+- shell: mysql | regist hostname
+  register: current_hostname
+
+- name: mysql | update root password for all root accounts
+  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mysql.root_password }} login_user=root login_password={{ mysql.root_password }}
+  with_items:
+    - "{{ current_hostname.stdout | lower }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: mysql | create databases
+  mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
+
+- name: mysql | Ensure anonymous users are not in the database
+  mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
+  with_items:
+    - localhost
+    - "{{ current_hostname.stdout | lower }}"
+
+- name: mysql | create users
+  mysql_user: name={{ mysql.user }} password={{ mysql.password }} priv={{ mysql.database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
+
+#- name: first root password
+#  shell: cat /var/log/mysqld.log | grep password | awk '{ print $NF }' | head -n 1
+#  register: mysql_passwd
+#
+#- name: check mysql root password
+#  command: mysqlshow -uroot -p'{{ mysql_passwd.stdout }}'
+#  register: root_check
+#  ignore_errors: True
+#
+#- name: set mysql root password
+#  command: mysql --connect-expired-password -uroot -p'{{ mysql_passwd.stdout }}' -e "set password for root@'localhost' = PASSWORD('{{ mysql_root_passwd }}')"
+#  when: root_check.stderr.find('denied') == -1
