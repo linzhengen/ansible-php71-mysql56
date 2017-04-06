@@ -1,0 +1,54 @@
+---
+- name: sshd | disable PasswordAuthentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    insertafter: "^#PasswordAuthentication"
+    line: "PasswordAuthentication no"
+
+- name: sshd | disable ChallengeResponseAuthentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^ChallengeResponseAuthentication"
+    insertafter: "^#ChallengeResponseAuthentication"
+    line: "ChallengeResponseAuthentication no"
+
+- name: sshd | ban root login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    insertafter: "^#PermitRootLogin"
+    line: "PermitRootLogin no"
+
+- name: sshd | change sshd port to {{ sshd_port }}
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^Port"
+    insertafter: "^#Port"
+    line: "Port {{ sshd_port }}"
+
+- name: sshd | restart sshd service
+  service:
+    name: sshd
+    state: restarted
+
+- name: sshd | open {{ sshd_port }}/tcp port
+  firewalld:
+    port: "{{ sshd_port }}/tcp"
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: sshd | disable ssh service
+  firewalld:
+    service: ssh
+    permanent: true
+    state: disabled
+    immediate: true
+
+- name: sshd| close 22/tcp port
+  firewalld:
+    port: 22/tcp
+    permanent: true
+    state: disabled
+    immediate: true
