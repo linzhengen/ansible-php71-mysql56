@@ -1,13 +1,18 @@
 ---
-php_packages: [
-  "php-gd",
-  "php-mbstring",
-  "php-pdo",
-  "php-snmp",
-  "php-devel",
-  "php-process",
-  "php-fpm",
-  "php-pear",
-  "php-mysql",
-  "php-mcrypt"
-]
+php_packages:
+  - php-cli
+  - php-common
+  - php-devel
+  - php-fpm
+  - php-gd
+  - php-imap
+  - php-ldap
+  - php-mbstring
+  - php-opcache
+  - php-pdo
+  - php-pear
+  - php-xml
+  - php-xmlrpc
+  - php-mcrypt
+  - php-snmp
+  - php-process

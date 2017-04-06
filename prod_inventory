@@ -1,1 +1,1 @@
-153.122.57.22 ansible_port=10022 ansible_ssh_user=syu ansible_ssh_host=153.122.57.22
+xxx.xxx.xxx.xxx ansible_port=xxx ansible_ssh_user=user ansible_ssh_host=xxx.xxx.xxx.xxx

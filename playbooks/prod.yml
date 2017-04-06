@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - git
+    - common
+    - nginx
+    - php
+    - composer
+    - mysql56
+#    - app
