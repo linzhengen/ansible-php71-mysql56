@@ -10,6 +10,7 @@
 - name: php | copy php.ini configuration
   template: src=php.ini.j2 dest=/etc/php.ini backup=yes
   notify: php-fpm restart
+  tags: phpini
 
 - name: php | copy OpCache configuration
   template: src=opcache.ini.j2 dest=/etc/php.d/10-opcache.ini backup=yes

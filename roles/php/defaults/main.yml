@@ -1,18 +1,4 @@
 ---
-# Pass in a comma-separated list of repos to use (e.g. "remi,epel"). Used only
-# for RHEL/CentOS.
-php_enablerepo: ""
-
-# PHP package state; use 'installed' to make sure it's installed, or 'latest' if
-# you want to upgrade or switch versions using a new repo.
-php_packages_state: installed
-
-# Whether to install recommended packages. Used only for Debian/Ubuntu.
-php_install_recommends: yes
-
-# Set this to false if you're not using PHP with Apache/Nginx/etc.
-php_enable_webserver: true
-
 # PHP-FPM configuration.
 php_fpm_user: "nginx"
 php_fpm_group: "nginx"
