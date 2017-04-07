@@ -10,51 +10,9 @@
     - mysql-community-server
     - MySQL-python
 
-- name: mysql | copy my.cnf
-  template: src=my.cnf.j2 dest=/etc/my.cnf backup=yes
-  notify: mysqld restart
+# Configure MySQL.
+- include: configure.yml
+- include: secure-installation.yml
+- include: databases.yml
+- include: users.yml
 
-- name: mysql | running and enabled
-  service:
-    name=mysqld
-    state=started
-    enabled=yes
-  tags: mysqld
-
-#- shell: mysql | regist hostname
-#  register: current_hostname
-#
-#- name: change mysql root password
-#  command: /usr/bin/mysqladmin -u root password {{ mysql.root_password }}
-#
-#- name: mysql | update root password for all root accounts
-#  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mysql.root_password }} login_user=root login_password={{ mysql.root_password }}
-#  with_items:
-#    - "{{ current_hostname.stdout | lower }}"
-#    - 127.0.0.1
-#    - ::1
-#    - localhost
-#
-#- name: mysql | create databases
-#  mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
-#
-#- name: mysql | Ensure anonymous users are not in the database
-#  mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
-#  with_items:
-#    - localhost
-#
-#- name: mysql | create users
-#  mysql_user: name={{ mysql.user }} password={{ mysql.password }} priv={{ mysql.database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
-
-#- name: first root password
-#  shell: cat /var/log/mysqld.log | grep password | awk '{ print $NF }' | head -n 1
-#  register: mysql_passwd
-#
-#- name: check mysql root password
-#  command: mysqlshow -uroot -p'{{ mysql_passwd.stdout }}'
-#  register: root_check
-#  ignore_errors: True
-#
-#- name: set mysql root password
-#  command: mysql --connect-expired-password -uroot -p'{{ mysql_passwd.stdout }}' -e "set password for root@'localhost' = PASSWORD('{{ mysql_root_passwd }}')"
-#  when: root_check.stderr.find('denied') == -1

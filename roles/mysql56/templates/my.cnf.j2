@@ -1,17 +1,106 @@
-# For advice on how to change settings please see
-# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+[client]
+port                  = {{ mysql_cnf.port }}
+socket                = {{ mysql_cnf.socket }}
+
+[mysqld_safe]
+socket          = {{ mysql_cnf.socket }}
+nice            = 0
 
 [mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
+user            = {{ mysql_cnf.user }}
+pid-file        = {{ mysql_cnf.pid_file }}
+socket          = {{ mysql_cnf.socket }}
+port            = {{ mysql_cnf.port }}
+basedir         = {{ mysql_cnf.basedir }}
+datadir         = {{ mysql_cnf.datadir }}
+tmpdir          = /tmp
+symbolic-links  = 0
 
-symbolic-links=0
+character-set-server    = utf8
+collation-server        = utf8_unicode_ci
+init_connect            = 'SET collation_connection = utf8_unicode_ci'
+init_connect            = 'SET NAMES utf8'
 
+default-storage-engine=innodb
+skip-external-locking
+skip-name-resolve
+skip-federated
+
+bind-address            = {{ mysql_cnf.bind_address }}
+
+#
+# * Fine Tuning
+#
+
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover          = BACKUP
+
+#thread_concurrency     = 10
+max_allowed_packet      = {{ mysql_cnf.tunable.max_allowed_packet }}
+thread_stack            = {{ mysql_cnf.tunable.thread_stack }}
+thread_cache_size       = {{ mysql_cnf.tunable.thread_cache_size }}
+key_buffer              = {{ mysql_cnf.tunable.key_buffer }}
+max_connections         = {{ mysql_cnf.tunable.max_connections }}
+wait_timeout            = {{ mysql_cnf.tunable.wait_timeout }}
+net_read_timeout        = {{ mysql_cnf.tunable.net_read_timeout }}
+net_write_timeout       = {{ mysql_cnf.tunable.net_write_timeout }}
+back_log                = {{ mysql_cnf.tunable.back_log }}
+table_open_cache         = {{ mysql_cnf.tunable.table_open_cache }}
+max_heap_table_size     = {{ mysql_cnf.tunable.max_heap_table_size }}
+
+#
+# * InnoDB Tuning
+#
+
+innodb_buffer_pool_size         = {{ mysql_cnf.tunable.innodb_buffer_pool_size }}
+innodb_flush_log_at_trx_commit  = {{ mysql_cnf.tunable.innodb_flush_log_at_trx_commit }}
+innodb_lock_wait_timeout        = {{ mysql_cnf.tunable.innodb_lock_wait_timeout }}
+#innodb_log_file_size=250M
+#innodb_log_buffer_size=8M
+
+
+#
+# * Query Cache Configuration
+#
+
+# Query Cache
+query_cache_limit      = {{ mysql_cnf.tunable.query_cache_limit }}
+query_cache_size       = {{ mysql_cnf.tunable.query_cache_size }}
+query_cache_type       = {{ mysql_cnf.tunable.query_cache_type }}
+
+
+# log-error
 log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
 
-character-set-server = utf8
-collation-server = utf8_general_ci
+#
+# * Slow Query Logging
+#
+slow_query_log         = 1
+slow_query_log_file    = {{ mysql_cnf.tunable.log_slow_queries }}
+long_query_time        = {{ mysql_cnf.tunable.long_query_time }}
+log_queries_not_using_indexes = 1
+
+# The following can be used as easy to replay backup logs or for replication.
+# note: if you are setting up a replication slave, see README.Debian about
+#       other settings you may need to change.
+#server-id              = 1
+#log_bin                        = {{ mysql_cnf.logdir }}/mysql-bin.log
+expire_logs_days        = 10
+max_binlog_size         = 100M
+#binlog_do_db           = include_database_name
+#binlog_ignore_db       = include_database_name
+
+
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet      = 32M
+default-character-set   = utf8
 
 [mysql]
-default-character-set = utf8
+default-character-set   = utf8
+
+[isamchk]
+key_buffer              = 16M

@@ -1,0 +1,19 @@
+---
+- name: mysql | set ownership on slow query log file
+  file:
+    path: "{{ mysql_cnf.tunable.log_slow_queries }}"
+    state: touch
+    owner: mysql
+    group: mysql
+    mode: 0640
+
+- name: mysql | copy my.cnf
+  template: src=my.cnf.j2 dest=/etc/my.cnf backup=yes
+  notify: mysqld restart
+
+- name: mysql | running and enabled
+  service:
+    name=mysqld
+    state=started
+    enabled=yes
+  tags: mysqld

@@ -1,0 +1,70 @@
+---
+# The default root user installed by mysql - almost always root
+mysql_root_home: /root
+mysql_root_username: root
+mysql_root_password: root
+
+# Set this to the user ansible is logging in as - should have root
+# or sudo access
+mysql_user_home: /home/vagrant
+mysql_user_name: vagrant
+mysql_user_password: vagrant
+
+mysql_databases: []
+#   - name: example
+#     collation: utf8_general_ci
+#     encoding: utf8
+#     replicate: 1
+
+# Users.
+mysql_users: []
+#   - name: example
+#     host: 127.0.0.1
+#     password: secret
+#     priv: *.*:USAGE
+
+# setting my.cnf
+mysql_cnf:
+  name: mysql
+  bin_dir: /usr/bin
+  port: 3306
+  datadir: /var/lib/mysql
+  logdir: /var/log/mysql
+  basedir: /usr
+  user: mysql
+  group: mysql
+  root_group: root
+  mysqladmin_bin: /usr/bin/mysqladmin
+  mysql_bin: /usr/bin/mysql
+  conf_dir: /etc
+  confd_dir: /etc/mysql/conf.d
+  socket: /var/lib/mysql/mysql.sock
+  pid_file: /var/run/mysqld/mysqld.pid
+  grants_path: /etc/mysql_grants.sql
+  bind_address: 0.0.0.0
+
+  tunable:
+    innodb_buffer_pool_size: 1200M
+    innodb_flush_log_at_trx_commit: 2
+    innodb_lock_wait_timeout: 50
+
+    # query cache
+    query_cache_type: 1
+    query_cache_size: 128M
+    query_cache_limit: 2M
+
+    # MyISAM & general
+    max_allowed_packet: 32M
+    thread_stack: 192K
+    thread_cache_size: 8
+    key_buffer: 250M
+    max_connections: 2048
+    wait_timeout: 180
+    net_read_timeout: 30
+    net_write_timeout: 30
+    back_log: 128
+    table_open_cache: 2048
+    max_heap_table_size: 32M
+
+    log_slow_queries: /var/log/mysql-slow.log
+    long_query_time: 1
