@@ -1,4 +1,6 @@
 ---
+mysql_root_password: "{{ lookup('password', '/tmp/passwordfile chars=ascii_letters,digits,hexdigits,punctuation') }}"
+
 # Databases.
 mysql_databases:
    - name: example

@@ -1,30 +1,24 @@
 ---
-- name: common | set timezone to Asia/Tokyo
+- name: common | Set timezone to Asia/Tokyo
   timezone:
     name: Asia/Tokyo
 
-- name: common | upgrade all packages
+- name: common | Upgrade all packages
   yum:
     name: '*'
     state: latest
 
-- name: common | add epel-release
+- name: common | Add epel-release
   yum:
     name: epel-release
     state: present
 
-- name: common | add repository 'remi-repo'
+- name: common | Add repository 'remi-repo'
   yum:
     name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     state: present
 
-#- name: add PHP Extension library
-#  yum: name={{ item }} state=installed enablerepo=epel,remi,remi-php71
-#  with_items:
-#    - libtidy
-#    - libmcrypt
-#
-- name: common | install base
+- name: common | Install base
   yum: name={{ item }} state=present
   with_items:
     - wget
@@ -44,5 +38,5 @@
     - crontabs
     - libselinux-python
 
-- name: common | selinux off
+- name: common | Selinux off
   selinux: state=disabled

@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: yes
+  become_method: sudo
+  roles:
+      - sshd
+      - iptables
+      - sshuser
+      - sudoer

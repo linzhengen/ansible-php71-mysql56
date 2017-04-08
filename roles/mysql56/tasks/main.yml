@@ -1,8 +1,8 @@
 ---
-- name: mysql | install mysql rpm
+- name: mysql | Install mysql rpm
   yum: name=https://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 
-- name: mysql | install mysql
+- name: mysql | Install mysql
   yum: name={{ item }} state=present
   with_items:
     - mysql-community-libs-compat

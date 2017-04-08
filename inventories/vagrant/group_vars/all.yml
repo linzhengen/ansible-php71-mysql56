@@ -1,0 +1,5 @@
+---
+sshd_port: 50022
+nginx_open_ports:
+  - 80
+  - 443

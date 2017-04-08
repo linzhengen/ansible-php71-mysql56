@@ -1,0 +1,14 @@
+---
+- name: sshuser | Create "{{ ansible_user }}"
+  user:
+    name: "{{ ansible_user }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    state: present
+
+- name: sshuser | Set authorized key for "{{ ansible_user }}" user copying it from current user
+  authorized_key:
+    user: ansible_user
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
