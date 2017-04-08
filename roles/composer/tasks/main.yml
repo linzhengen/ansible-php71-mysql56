@@ -1,9 +1,4 @@
 ---
-- name: composer | Set php_executable variable to a default if not defined.
-  set_fact:
-    php_executable: php
-  when: composer | php_executable is not defined
-
 - name: composer | Check if Composer is installed.
   stat: "path={{ composer_path }}"
   register: composer_bin

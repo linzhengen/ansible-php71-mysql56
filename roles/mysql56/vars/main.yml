@@ -1,6 +1,0 @@
----
-mysql:
-  root_password: vagrant
-  database: myapp
-  user: vagrant
-  password: vagrant
