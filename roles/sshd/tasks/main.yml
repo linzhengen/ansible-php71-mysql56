@@ -26,8 +26,10 @@
     regexp: "^Port"
     insertafter: "^#Port"
     line: "Port {{ sshd_port }}"
+  tags: sshd_port
 
 - name: sshd | Restart sshd service
   service:
     name: sshd
     state: restarted
+  tags: sshd_port

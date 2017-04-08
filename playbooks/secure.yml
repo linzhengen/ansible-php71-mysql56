@@ -4,6 +4,6 @@
   become_method: sudo
   roles:
       - sshd
-      - iptables
       - sshuser
       - sudoer
+      - iptables

@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../","/var/wwwroot",
+  config.vm.synced_folder "../public","/var/wwwroot/public",
     # :owner => "nginx",
     # :group => "nginx",
     :mount_options => ["dmode=775,fmode=664"]
@@ -73,10 +73,4 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
-
-  config.vm.provision "ansible"  do |ansible|
-    ansible.limit = 'all'
-    ansible.inventory_path = "inventories/vagrant"
-    ansible.playbook = "playbooks/vagrant.yml"
-  end
 end

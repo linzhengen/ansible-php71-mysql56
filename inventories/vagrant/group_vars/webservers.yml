@@ -1,1 +1,6 @@
 ---
+sshd_port: 22
+php_fpm_listen: "127.0.0.1:9000"
+nginx_open_ports:
+  - 80
+  - 443
