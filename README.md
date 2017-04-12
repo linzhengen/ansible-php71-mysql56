@@ -64,8 +64,8 @@ Installs and configures PHP+Nginx+MySql server on CentOS6.
    cd ansible-php71-mysql56
    brew install sshpass
    ansible-playbook -i inventories/production/default playbooks/secure.yml
-   ansible-playbook -i inventories/production/default playbooks/iptables.yml
-   ansible-playbook -i inventories/production/default playbooks/prodction.yml
+   ansible-playbook -i inventories/production playbooks/iptables.yml
+   ansible-playbook -i inventories/production playbooks/prodction.yml
    ```
 
 
