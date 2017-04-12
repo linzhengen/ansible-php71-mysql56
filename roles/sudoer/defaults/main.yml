@@ -3,7 +3,7 @@ sudoers_filename: "conf"
 
 # Who has sudo access - use %foo for groups
 sudoers:
-  - name: "ansible_user"
+  - name: "ansible-user"
     users:
       - "ALL"
 

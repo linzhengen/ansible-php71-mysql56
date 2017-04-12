@@ -1,0 +1,18 @@
+---
+mysql_root_password: rootpw
+mysql_user_home: /home/ansible-user
+mysql_user_name: ansible-user
+mysql_user_password: ansible-userpw
+
+# Databases.
+mysql_databases:
+   - name: app
+     collation: utf8_general_ci
+     encoding: utf8
+
+# Users.
+mysql_users:
+   - name: app
+     host: 127.0.0.1
+     password: apppw
+     priv: "app.*:ALL"

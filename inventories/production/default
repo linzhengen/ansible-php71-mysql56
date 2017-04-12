@@ -1,0 +1,9 @@
+[webservers]
+xxx.xxx.xxx.xxx ansible_port=22 ansible_ssh_pass=rootpass ansible_ssh_user=root ansible_ssh_host=xxx.xxx.xxx.xxx
+
+[dbservers]
+xxx.xxx.xxx.xxx ansible_port=22 ansible_ssh_pass=rootpass ansible_ssh_user=root ansible_ssh_host=xxx.xxx.xxx.xxx
+
+[all:children]
+webservers
+dbservers

@@ -1,24 +1,31 @@
 ---
 - name: php | Install php
-  yum: name=php state=present enablerepo=remi,remi-php71
+  yum: name=php state=present enablerepo={{ php_repo }}
+  tags: php
 
 - name: php | Install php package
-  yum: name={{ item }} state=present enablerepo=remi,remi-php71
+  yum: name={{ item }} state=present enablerepo={{ php_repo }}
   with_items: "{{ php_packages }}"
+  tags: php
 
 # Configure PHP.
 - name: php | Copy php.ini configuration
   template: src=php.ini.j2 dest=/etc/php.ini backup=yes
   notify: php-fpm restart
-  tags: phpini
+  tags:
+    - phpini
+    - php
 
 - name: php | Copy OpCache configuration
   template: src=opcache.ini.j2 dest=/etc/php.d/10-opcache.ini backup=yes
   notify: php-fpm restart
+  tags: php
 
 - name: php | Copy php-fpm configuration
   template: src=www.conf.j2 dest=/etc/php-fpm.d/www.conf backup=yes
   notify: php-fpm restart
+  tags: php
 
 - name: nginx | Start php-fpm
   service: name=php-fpm state=started enabled=yes
+  tags: php
