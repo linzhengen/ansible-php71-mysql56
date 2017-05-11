@@ -4,22 +4,21 @@ Installs and configures PHP+Nginx+MySql server on CentOS6.
 - MySQL5.6
 - Nginx/1.10.3
 
-# Quick Setup
+# Development Setup
+## Quick Setup with vagrant
 ### Prerequisite
 * Mac OR Windows
 * Vagrant(1.8.1+)
 * VirtualBox(12.0.7+)
 
 ### Provisioning environment
-1. Download git repository
   ```
   cd ansible-php71-mysql56
   vagrant up
   ```
 
-# Development Setup
+## Setup with ansible-playbook
 ### Prerequisite
-* Mac(macOS Sierra)
 * Vagrant(1.8.1+)
 * VirtualBox(12.0.7+)
 * Ansible(2.2.2+)
@@ -37,7 +36,7 @@ Installs and configures PHP+Nginx+MySql server on CentOS6.
 1. Provisioning
    ```
    cd ansible-php71-mysql56
-   vagrant up
+   vagrant up --no-provision
    ansible-playbook -i inventories/vagrant playbooks/vagrant.yml
    ```
 # Production Setup
