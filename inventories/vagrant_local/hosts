@@ -1,0 +1,12 @@
+[webservers]
+192.168.33.33
+
+[dbservers]
+192.168.33.33
+
+[vagrant:children]
+webservers
+dbservers
+
+[vagrant:vars]
+ansible_connection=local
