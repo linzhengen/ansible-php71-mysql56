@@ -1,0 +1,27 @@
+---
+- name: newrelic | Check for newrelic_license_key
+  fail:
+    msg: "newrelic_license_key has not been defined"
+  when: newrelic_license|default(False) == False
+
+- name: newrelic | Check for newrelic_appname
+  fail:
+    msg: "newrelic_appname has not been defined"
+  when: newrelic_appname|default(False) == False
+
+- name: newrelic | Install newrelic repository
+  yum: name=http://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm
+
+- name: newrelic | Install newrelic
+  yum: name=newrelic-php5
+
+- name: newrelic | Run New Relic Installer
+  shell: NR_INSTALL_SILENT=true newrelic-install install
+  notify:
+    - php-fpm restart
+
+# Configure NewRelic.
+- include: configure.yml
+
+
+

@@ -1,0 +1,5 @@
+---
+- name: mysql | Copy newrelic.ini
+  template: src=newrelic.ini.j2 dest=/etc/php.d/newrelic.ini backup=yes
+  notify: php-fpm restart
+  tags: newrelic_ini

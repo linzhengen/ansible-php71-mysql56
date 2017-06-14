@@ -1,0 +1,4 @@
+---
+# newrelic.ini setting
+newrelic_appname: PHP Application
+newrelic_license: newrelic_license
