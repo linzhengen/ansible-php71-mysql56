@@ -1,4 +1,5 @@
 .vagrant/
+.idea/
 *.retry
 
 .idea/
