@@ -1,0 +1,3 @@
+---
+- include: install-from-source.yml
+- include: renew-cron.yml
