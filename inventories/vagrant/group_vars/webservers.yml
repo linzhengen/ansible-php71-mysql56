@@ -4,3 +4,22 @@ php_fpm_listen: "127.0.0.1:9000"
 nginx_open_ports:
   - 80
   - 443
+
+php_packages:
+  - php-cli
+  - php-common
+  - php-devel
+  - php-fpm
+  - php-gd
+  - php-imap
+  - php-ldap
+  - php-mbstring
+  - php-opcache
+  - php-pdo
+  - php-pear
+  - php-xml
+  - php-xmlrpc
+  - php-mcrypt
+  - php-snmp
+  - php-process
+  - php-devel

@@ -34,13 +34,13 @@ bind-address            = {{ mysql_cnf.bind_address }}
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
-myisam-recover          = BACKUP
+myisam-recover-options  = BACKUP
 
 #thread_concurrency     = 10
 max_allowed_packet      = {{ mysql_cnf.tunable.max_allowed_packet }}
 thread_stack            = {{ mysql_cnf.tunable.thread_stack }}
 thread_cache_size       = {{ mysql_cnf.tunable.thread_cache_size }}
-key_buffer              = {{ mysql_cnf.tunable.key_buffer }}
+# key_buffer              = {{ mysql_cnf.tunable.key_buffer }}
 max_connections         = {{ mysql_cnf.tunable.max_connections }}
 wait_timeout            = {{ mysql_cnf.tunable.wait_timeout }}
 net_read_timeout        = {{ mysql_cnf.tunable.net_read_timeout }}

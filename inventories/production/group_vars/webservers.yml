@@ -1,5 +1,5 @@
 ---
-sshd_port: 1022
+sshd_port: 2022
 php_fpm_listen: "127.0.0.1:9000"
 nginx_open_ports:
   - 80

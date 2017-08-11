@@ -18,6 +18,9 @@
     name: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     state: present
 
+- name: common | Install libwebp
+  yum: name=libwebp state=present enablerepo=epel disablerepo=amzn-main
+
 - name: common | Install base
   yum: name={{ item }} state=present
   with_items:
@@ -37,6 +40,14 @@
     - openssh-clients
     - crontabs
     - libselinux-python
+    - gd-last
+    - net-snmp-libs
+    - libtool-ltdl
+    - net-snmp
+    - automake
+    - autoconf
+    - libc-client
 
 - name: common | Selinux off
   selinux: state=disabled
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

@@ -4,7 +4,7 @@ php_packages:
   - php-common
   - php-devel
   - php-fpm
-  - php-gd
+#  - php-gd
   - php-imap
   - php-ldap
   - php-mbstring
@@ -16,3 +16,4 @@ php_packages:
   - php-mcrypt
   - php-snmp
   - php-process
+  - php-mysql

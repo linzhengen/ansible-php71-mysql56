@@ -1,2 +1,2 @@
 ---
-ansible-user: ansible-user
+ansible-user: "ansible-user"

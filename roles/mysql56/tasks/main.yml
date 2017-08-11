@@ -1,16 +1,30 @@
 ---
 - name: mysql | Install mysql rpm
   yum: name=https://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+  tags:
+    - mysql
 
-- name: mysql | Install mysql
+- name: mysql | Install mysql On Centos
   yum: name={{ item }} state=present
   with_items:
     - mysql-community-libs-compat
     - mysql-community-client
     - mysql-community-server
-    - MySQL-python
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
+    - mysql
+
+- name: mysql | Install mysql On Ec2
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql56-server
+    - MySQL-python27
+  when: ansible_distribution == 'Amazon'
+  tags:
+    - mysql
 
 # Configure MySQL.
+#- include: swap.yml
 - include: configure.yml
 - include: secure-installation.yml
 - include: databases.yml

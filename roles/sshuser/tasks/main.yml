@@ -1,5 +1,5 @@
 ---
-- name: sshuser | Create "{{ ansible-user }}"
+- name: "sshuser | Create ansible user"
   user:
     name: "{{ ansible-user }}"
     generate_ssh_key: yes
@@ -7,7 +7,7 @@
     ssh_key_file: .ssh/id_rsa
     state: present
 
-- name: sshuser | Set authorized key for "{{ ansible-user }}" user copying it from current user
+- name: sshuser | Set authorized key for ansible user copying it from current user
   authorized_key:
     user: ansible-user
     state: present

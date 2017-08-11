@@ -1,7 +1,7 @@
 ---
 # PHP repo
-# php_repo: "remi,remi-php56"
-php_repo: "remi,remi-php71"
+php_repo: "remi,remi-php56"
+# php_repo: "remi,remi-php71"
 
 # PHP-FPM configuration.
 php_fpm_user: "nginx"
