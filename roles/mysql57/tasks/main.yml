@@ -1,0 +1,18 @@
+---
+- name: mysql | Install mysql rpm
+  yum: name=http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+
+- name: mysql | Install mysql
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-community-libs-compat
+    - mysql-community-client
+    - mysql-community-server
+    - MySQL-python
+
+# Configure MySQL.
+- include: configure.yml
+- include: secure-installation.yml
+- include: databases.yml
+- include: users.yml
+
